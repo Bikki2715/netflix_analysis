@@ -82,16 +82,18 @@ SELECT
 FROM RankedRatings
 WHERE rank = 1;
 ```
+output:<img width="532" height="241" alt="image" src="https://github.com/user-attachments/assets/5bd0436a-7b9a-449f-b785-f953ede6e19f" />
 
 **Objective:** Identify the most frequently occurring rating for each type of content.
 
-### 3. List All Movies Released in a Specific Year (e.g., 2020)
+### 3. List All Movies Released in a Specific Year (e.g., 1987)
 
 ```sql
 SELECT * 
 FROM netflix
-WHERE release_year = 2020;
+WHERE release_year = 1987;
 ```
+output:<img width="761" height="471" alt="image" src="https://github.com/user-attachments/assets/fcac6252-eb37-45ce-9c84-998c1abc7b21" />
 
 **Objective:** Retrieve all movies released in a specific year.
 
@@ -111,6 +113,8 @@ WHERE country IS NOT NULL
 ORDER BY total_content DESC
 LIMIT 5;
 ```
+output:<img width="504" height="290" alt="image" src="https://github.com/user-attachments/assets/3c28538a-1247-459a-913f-ed0837f748cd" />
+
 
 **Objective:** Identify the top 5 countries with the highest number of content items.
 
@@ -123,6 +127,7 @@ FROM netflix
 WHERE type = 'Movie'
 ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
 ```
+output:<img width="785" height="208" alt="image" src="https://github.com/user-attachments/assets/e5af0b5e-4cd3-4d4b-8e7a-0851fb1d2a75" />
 
 **Objective:** Find the movie with the longest duration.
 
@@ -133,7 +138,7 @@ SELECT *
 FROM netflix
 WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
 ```
-
+output : here it was long data output 
 **Objective:** Retrieve content added to Netflix in the last 5 years.
 
 ### 7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
@@ -148,19 +153,23 @@ FROM (
 ) AS t
 WHERE director_name = 'Rajiv Chilaka';
 ```
+output:<img width="1401" height="777" alt="image" src="https://github.com/user-attachments/assets/ed3867fa-6174-44a6-b588-1f85d20bfd44" />
 
 **Objective:** List all content directed by 'Rajiv Chilaka'.
 
-### 8. List All TV Shows with More Than 5 Seasons
+### 8. List All TV Shows with More Than 11 Seasons
 
 ```sql
 SELECT *
 FROM netflix
 WHERE type = 'TV Show'
-  AND SPLIT_PART(duration, ' ', 1)::INT > 5;
+  AND SPLIT_PART(duration, ' ', 1)::INT > 11;
 ```
+output:
+<img width="565" height="445" alt="image" src="https://github.com/user-attachments/assets/30cde131-5749-4d71-8528-aeb07b7003c0" />
 
-**Objective:** Identify TV shows with more than 5 seasons.
+
+**Objective:** Identify TV shows with more than 11 seasons.
 
 ### 9. Count the Number of Content Items in Each Genre
 
@@ -171,7 +180,7 @@ SELECT
 FROM netflix
 GROUP BY 1;
 ```
-
+output: this output also very long
 **Objective:** Count the number of content items in each genre.
 
 ### 10.Find each year and the average numbers of content release in India on netflix. 
@@ -192,6 +201,7 @@ GROUP BY country, release_year
 ORDER BY avg_release DESC
 LIMIT 5;
 ```
+output:<img width="822" height="377" alt="image" src="https://github.com/user-attachments/assets/8fbf6633-5756-4fe5-a7f8-2e5e61a40a44" />
 
 **Objective:** Calculate and rank years by the average number of content releases by India.
 
@@ -223,10 +233,11 @@ FROM netflix
 WHERE casts LIKE '%Salman Khan%'
   AND release_year > EXTRACT(YEAR FROM CURRENT_DATE) - 10;
 ```
+output:<img width="1680" height="247" alt="image" src="https://github.com/user-attachments/assets/b3064a0d-6246-4c84-94d6-fd20644f4c2c" />
 
 **Objective:** Count the number of movies featuring 'Salman Khan' in the last 10 years.
 
-### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+### 14. Find the Top 5 Actors Who Have Appeared in the Highest Number of Movies Produced in India
 
 ```sql
 SELECT 
@@ -236,8 +247,10 @@ FROM netflix
 WHERE country = 'India'
 GROUP BY actor
 ORDER BY COUNT(*) DESC
-LIMIT 10;
+LIMIT 5;
 ```
+output:<img width="431" height="327" alt="image" src="https://github.com/user-attachments/assets/72fb3c89-7bee-4216-b8f2-fd56403712b8" />
+
 
 **Objective:** Identify the top 10 actors with the most appearances in Indian-produced movies.
 
@@ -257,9 +270,22 @@ FROM (
 ) AS categorized_content
 GROUP BY category;
 ```
+output:<img width="616" height="353" alt="image" src="https://github.com/user-attachments/assets/cf112032-e7a8-4de2-a7e1-01f89998d2bf" />
 
 **Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
+### 16. 16. Determine the number of titles that are co-productions (multiple countries) versus single-country productions to understand global collaboration.
+ ''' 
+SELECT
+  SUM(CASE WHEN country LIKE '%,%' THEN 1 ELSE 0 END) AS multi_country_titles,
+  SUM(CASE WHEN country NOT LIKE '%,%' THEN 1 ELSE 0 END) AS single_country_titles
+FROM netflix;
+'''
+output:<img width="541" height="244" alt="image" src="https://github.com/user-attachments/assets/7c2d75a5-30ce-41ad-90f0-975a2e83a2be" />
+
+
+
+**objective:**This query counts titles by whether they list multiple countries (co-productions) or just one country.
 ## Findings and Conclusion
 
 - **Content Distribution:** The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
@@ -269,22 +295,10 @@ GROUP BY category;
 
 This analysis provides a comprehensive view of Netflix's content and can help inform content strategy and decision-making.
 
+  
 
+Thank you !
 
-## Author - Zero Analyst
-
-This project is part of my portfolio, showcasing the SQL skills essential for data analyst roles. If you have any questions, feedback, or would like to collaborate, feel free to get in touch!
-
-### Stay Updated and Join the Community
-
-For more content on SQL, data analysis, and other data-related topics, make sure to follow me on social media and join our community:
-
-- **YouTube**: [Subscribe to my channel for tutorials and insights](https://www.youtube.com/@zero_analyst)
-- **Instagram**: [Follow me for daily tips and updates](https://www.instagram.com/zero_analyst/)
-- **LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/najirr)
-- **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
-
-Thank you for your support, and I look forward to connecting with you!
 
 
 
