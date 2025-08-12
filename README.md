@@ -275,12 +275,12 @@ output:<img width="616" height="353" alt="image" src="https://github.com/user-at
 **Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
 ### 16. 16. Determine the number of titles that are co-productions (multiple countries) versus single-country productions to understand global collaboration.
-/*
+--
 SELECT
   SUM(CASE WHEN country LIKE '%,%' THEN 1 ELSE 0 END) AS multi_country_titles,
   SUM(CASE WHEN country NOT LIKE '%,%' THEN 1 ELSE 0 END) AS single_country_titles
 FROM netflix;
-*/
+--
 
 output:
 <img width="541" height="244" alt="image" src="https://github.com/user-attachments/assets/7c2d75a5-30ce-41ad-90f0-975a2e83a2be" />
@@ -300,6 +300,7 @@ This analysis provides a comprehensive view of Netflix's content and can help in
   
 
 Thank you !
+
 
 
 
