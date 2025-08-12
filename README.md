@@ -50,6 +50,7 @@ SELECT
 FROM netflix
 GROUP BY 1;
 ```
+output:"C:\Users\dhana\OneDrive\Pictures\Screenshots\Screenshot 2025-08-12 095817.png"
 
 **Objective:** Determine the distribution of content types on Netflix.
 
@@ -281,3 +282,4 @@ For more content on SQL, data analysis, and other data-related topics, make sure
 - **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your support, and I look forward to connecting with you!
+
